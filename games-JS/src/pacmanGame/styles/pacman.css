@@ -1,0 +1,95 @@
+.pacman {
+    width: var(--side);
+    height: var(--side);
+    background: yellow;
+    border-radius: 100%;
+    -webkit-clip-path: polygon(
+      0 0, 
+      var(--side) 0, 
+      var(--side) calc(-1 * var(--side) / 4), 
+      calc(var(--side) / 2) calc(var(--side) / 2), 
+      var(--side) calc(var(--side) + var(--side) / 4), 
+      var(--side) var(--side), 
+      0 var(--side)
+    );
+    -webkit-animation: chew 0.4s linear forwards infinite;
+  
+    clip-path: polygon(
+      0 0, 
+      var(--side) 0, 
+      var(--side) calc(-1 * var(--side) / 4), 
+      calc(var(--side) / 2) calc(var(--side) / 2), 
+      var(--side) calc(var(--side) + var(--side) / 4), 
+      var(--side) var(--side), 
+      0 var(--side)
+    );
+    animation: chew 0.4s linear forwards infinite;
+    transform: translate(1px, 1px);
+    z-index: 10;
+  }
+  
+  
+  @-webkit-keyframes chew {
+    50% {
+      -webkit-clip-path: polygon(
+        0 0, 
+        var(--side) 0, 
+        var(--side) calc(var(--side) / 2), 
+        calc(var(--side) / 2) calc(var(--side) / 2), 
+        var(--side) calc(var(--side) / 2), 
+        var(--side) var(--side), 
+        0 var(--side)
+      );
+    }
+  }
+  
+  @keyframes chew {
+    50% {
+      -webkit-clip-path: polygon(
+        0 0, 
+        var(--side) 0, 
+        var(--side) calc(var(--side) / 2), 
+        calc(var(--side) / 2) calc(var(--side) / 2), 
+        var(--side) calc(var(--side) / 2), 
+        var(--side) var(--side), 
+        0 var(--side)
+      );
+      clip-path: polygon(
+        0 0, 
+        var(--side) 0, 
+        var(--side) calc(var(--side) / 2), 
+        calc(var(--side) / 2) calc(var(--side) / 2), 
+        var(--side) calc(var(--side) / 2), 
+        var(--side) var(--side), 
+        0 var(--side)
+      );
+    }
+  }
+  
+  .pacman[data-direction="left"] {
+    transform: scaleX(-1);
+  }
+  
+  .pacman[data-direction="up"] {
+    transform: rotate(-90deg);
+  }
+  
+  .pacman[data-direction="down"] {
+    transform: rotate(90deg);
+  }
+  
+  /* Área inicial de Pacman */
+  :is(.pacman-house) {
+    background-color: transparent;
+    border: none;
+  }
+  
+  .pacman-house {
+    background-color: transparent !important;
+    border: none !important;
+    z-index: 1;
+  }
+  
+  .pacman-house.walkable {
+    background-color: transparent !important;
+  } 

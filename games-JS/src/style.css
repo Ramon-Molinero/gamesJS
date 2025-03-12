@@ -1,5 +1,5 @@
 @import './pacmanGame/styles/board.css';
-
+@import './pacmanGame/styles/pacman.css';
 
 :root {
   --wall-color: #2121ff;
@@ -12,8 +12,8 @@
 
 body {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
   height: 100vh;
   width: 100vw;
   margin: 0;
@@ -27,4 +27,30 @@ body {
   justify-content: center;
   align-items: center;
   width: 100%;
+}
+
+.row:nth-child(1) {
+  order: 2;
+}
+
+.row:nth-child(2) {
+  order: 1;
+  flex-direction: column;
+  margin: 30px 0;
+}
+
+:is(.score-container, .level-container) {
+  transform: translate(-20%);
+}
+
+.score-container {
+  color: white;
+  font-size: 24px;
+  font-family: Arial, sans-serif;
+  
+}
+
+.level-container {
+  color: white;
+  font-size: 20px;
 }

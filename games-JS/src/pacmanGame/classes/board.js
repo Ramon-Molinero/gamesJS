@@ -11,11 +11,8 @@ export class Board {
   }
 
   createElement() {
-    const row = document.createElement('div');
     const board = document.createElement('div');
     board.classList.add('board-game');
-    row.classList.add('row');
-    row.appendChild(board);
     return board;
   }
 
@@ -73,7 +70,10 @@ export class Board {
   }
 
   mount(parent) {
-    parent.appendChild(this.element);
+    const row = document.createElement('div');
+    row.classList.add('row');
+    row.appendChild(this.element);
+    parent.appendChild(row);
   }
 
 

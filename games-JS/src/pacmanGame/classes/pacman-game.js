@@ -1,7 +1,8 @@
 import { Board } from './board.js';
 import { GridAreaSelector } from '../utils/gridAreaSelector.js';
+import { Pacman } from './pacman.js';
 
-// Mapa del tablero Pac-Man (28x28)
+
 const BOARD_MAP = [
   [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
   [1,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,1],
@@ -44,5 +45,6 @@ export class PacmanGame {
     this.board.mount(document.body);
     GridAreaSelector.setupBaseGrid(29, 28, BOARD_MAP);
     this.board.createInternalWall();
+    this.pacman = new Pacman(this.board);
   }
 }
