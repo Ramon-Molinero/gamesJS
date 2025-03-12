@@ -22,10 +22,10 @@ export class Pacman {
     this.moveInterval = null;
     this.firstMove = true;
     this.ghostManager = new GhostManager(board, this);
+    this.spawn();
     this.setupControls();
     this.setupScoreDisplay();
     this.setupLevelDisplay();
-    this.spawn();
   }
 
   /**
@@ -300,6 +300,8 @@ export class Pacman {
       this.firstMove = true;
       this.board.resetPoints();
 
+      // Recrear el elemento de Pacman
+      this.element = this.createElement();
       this.spawn();
     }, 3000);
   }
