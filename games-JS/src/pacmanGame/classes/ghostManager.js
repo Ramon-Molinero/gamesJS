@@ -1,6 +1,15 @@
 import { Ghost } from './ghost.js';
 
+/**
+ * @description Clase que gestiona los fantasmas en el juego.
+ * Maneja la creación, movimiento y comportamiento de los fantasmas.
+ */
 export class GhostManager {
+  /**
+   * @description Inicializa el manager de fantasmas.
+   * @param {Board} board - El tablero de juego.
+   * @param {Pacman} pacman - El jugador Pacman.
+   */
   constructor(board, pacman) {
     this.board = board;
     this.pacman = pacman;
@@ -9,6 +18,9 @@ export class GhostManager {
     this.createGhosts();
   }
 
+  /**
+   * @description Crea los fantasmas en el tablero.
+   */
   createGhosts() {
     // Posiciones iniciales de los fantasmas en ghost house
     const ghostsConfig = [
@@ -23,6 +35,9 @@ export class GhostManager {
     );
   }
 
+  /**
+   * @description Abre las puertas de la casa de fantasmas.
+   */
   openDoors() {
     if (!this.doorOpen) {
       this.doorOpen = true;
@@ -45,10 +60,16 @@ export class GhostManager {
     }
   }
 
+  /**
+   * @description Hace a los fantasmas vulnerables.
+   */
   makeGhostsVulnerable() {
     this.ghosts.forEach(ghost => ghost.makeVulnerable());
   }
 
+  /**
+   * @description Incrementa el nivel y hace a los fantasmas vulnerables.
+   */
   levelUp() {
     this.doorOpen = false;
     // Buscar la puerta en el tablero
@@ -67,6 +88,9 @@ export class GhostManager {
     });
   }
 
+  /**
+   * @description Reinicia el manager de fantasmas.
+   */
   reset() {
     this.doorOpen = false;
     // Buscar la puerta en el tablero

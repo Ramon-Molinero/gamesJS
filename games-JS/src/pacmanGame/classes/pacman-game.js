@@ -40,6 +40,9 @@ export class PacmanGame {
     this.board = new Board();
   }
 
+  /**
+   * @description Inicializa el juego.
+   */
   init() {
     this.board.createBoard(BOARD_MAP);
     this.board.mount(document.body);

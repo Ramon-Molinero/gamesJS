@@ -1,5 +1,13 @@
 export class GridAreaSelector {
-    static selectArea(startRow, startCol, endRow, endCol, className) {
+  /**
+   * Selecciona una área del tablero y aplica una clase a las celdas en el rango especificado.
+   * @param {number} startRow - La fila inicial del rango.
+   * @param {number} startCol - La columna inicial del rango.
+   * @param {number} endRow - La fila final del rango.
+   * @param {number} endCol - La columna final del rango.
+   * @param {string} className - La clase a aplicar a las celdas.
+   */
+  static selectArea(startRow, startCol, endRow, endCol, className) {
       // Aplicar la clase a todas las celdas en el rango
       for (let row = startRow; row <= endRow; row++) {
         for (let col = startCol; col <= endCol; col++) {
@@ -21,9 +29,14 @@ export class GridAreaSelector {
       );
     }
   
-    static setupBaseGrid(rows, cols) {
-      let areas = [];
-      
+  /**
+   * Configura el grid base del tablero.
+   * @param {number} rows - El número de filas del tablero.
+   * @param {number} cols - El número de columnas del tablero.
+   */
+  static setupBaseGrid(rows, cols) {
+    let areas = [];
+    
       // Generar las áreas para cada fila
       for (let row = 0; row < rows; row++) {
         const rowAreas = [];

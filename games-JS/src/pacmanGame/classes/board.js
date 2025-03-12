@@ -1,7 +1,12 @@
 import { CellFactory } from '../factories/cell-factory.js';
 import { GridAreaSelector } from '../utils/gridAreaSelector.js';
 
+/**
+ * @description Clase que representa el tablero del juego Pacman.
+ * Maneja la creación, renderizado y gestión del tablero de juego.
+ */
 export class Board {
+ 
   constructor() {
     this.sizeRows = 29;
     this.sizeCols = 28;
@@ -10,13 +15,20 @@ export class Board {
     this.boardMap = null;
   }
 
-  
+  /**
+   * @description Crea el elemento DOM principal del tablero.
+   * @returns {HTMLElement} Elemento div con la clase 'board-game'.
+   */
   createElement() {
     const board = document.createElement('div');
     board.classList.add('board-game');
     return board;
   }
 
+  /**
+   * @description Crea el tablero de juego basado en el mapa proporcionado.
+   * @param {Array<Array<number>>} boardMap - Matriz que define el layout del tablero.
+   */
   createBoard(boardMap) {
     this.boardMap = boardMap;
     for (let row = 0; row < this.sizeRows; row++) {
@@ -30,6 +42,12 @@ export class Board {
     }
   }
 
+  /**
+   * @description Obtiene una celda específica del tablero.
+   * @param {number} row - Índice de la fila.
+   * @param {number} col - Índice de la columna.
+   * @returns {Cell|null} La celda en la posición especificada o null si está fuera de límites.
+   */
   getCell(row, col) {
     if (row >= 0 && row < this.sizeRows && col >= 0 && col < this.sizeCols) {
       return this.cells[row][col];
@@ -37,6 +55,10 @@ export class Board {
     return null;
   }
 
+  /**
+   * @description Reinicia todos los puntos del tablero a su estado inicial.
+   * Elimina los puntos existentes y los recrea según el mapa original.
+   */
   resetPoints() {
     // Primero eliminar todos los puntos existentes
     for (let row = 0; row < this.sizeRows; row++) {
@@ -66,10 +88,19 @@ export class Board {
     }
   }
 
+  /**
+   * @description Obtiene el elemento DOM principal del tablero.
+   * @returns {HTMLElement} Elemento que representa el tablero.
+   */
   getElement() {
     return this.element;
   }
 
+  /**
+   * @description Monta el tablero en el elemento padre especificado.
+   * Crea la estructura DOM necesaria con el contenedor row.
+   * @param {HTMLElement} parent - Elemento donde se montará el tablero.
+   */
   mount(parent) {
     const row = document.createElement('div');
     row.classList.add('row');
@@ -77,7 +108,10 @@ export class Board {
     parent.appendChild(row);
   }
 
-
+  /**
+   * @description Crea las paredes internas del tablero.
+   * Define las áreas específicas para cada tipo de pared y las aplica usando GridAreaSelector.
+   */
   createInternalWall() {
     GridAreaSelector.selectArea(2, 2, 4, 5, 'internal-wall');
     GridAreaSelector.selectArea(2, 7, 4, 11, 'internal-wall-1');
@@ -130,6 +164,4 @@ export class Board {
     GridAreaSelector.selectArea(12, 13, 12, 14, 'ghost-house-door');
     GridAreaSelector.selectArea(21, 13, 21, 14, 'pacman-house');
   }
-
-
 } 

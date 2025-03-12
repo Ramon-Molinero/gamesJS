@@ -1,6 +1,14 @@
-import { GhostManager } from './GhostManager.js';
+import { GhostManager } from './ghostManager.js';
 
+/**
+ * @description Clase que representa al personaje Pacman en el juego.
+ * Maneja el movimiento, puntuación, niveles y las interacciones del personaje.
+ */
 export class Pacman {
+  /**
+   * @description Inicializa una nueva instancia de Pacman.
+   * @param {Board} board - El tablero de juego donde se moverá Pacman.
+   */
   constructor(board) {
     this.board = board;
     this.element = this.createElement();
@@ -20,13 +28,20 @@ export class Pacman {
     this.spawn();
   }
 
+  /**
+   * @description Crea el elemento DOM que representa a Pacman.
+   * @returns {HTMLElement} Elemento div con la clase 'pacman'.
+   */
   createElement() {
     const pacman = document.createElement('div');
     pacman.classList.add('pacman');
     return pacman;
   }
 
-  // Buscar la celda pacman-house en el tablero
+  /**
+   * @description Coloca a Pacman en su posición inicial en el tablero.
+   * Busca la celda 'pacman-house' y establece la posición inicial.
+   */
   spawn() {
     for (let row = 0; row < this.board.cells.length; row++) {
       for (let col = 0; col < this.board.cells[row].length; col++) {
@@ -44,6 +59,10 @@ export class Pacman {
     this.element.dataset.direction = this.direction;
   }
 
+  /**
+   * @description Configura los controles del teclado para mover a Pacman.
+   * Maneja los eventos keydown para cambiar la dirección y keyup para detener el movimiento.
+   */
   setupControls() {
     document.addEventListener('keydown', (e) => {
       switch (e.key) {
@@ -73,11 +92,19 @@ export class Pacman {
     });
   }
 
+  /**
+   * @description Inicia el movimiento continuo de Pacman.
+   * Establece un intervalo para mover el personaje según la velocidad definida.
+   */
   startMoving() {
     this.moveOnce();
     this.moveInterval = setInterval(() => this.moveOnce(), this.speed);
   }
 
+  /**
+   * @description Detiene el movimiento de Pacman.
+   * Limpia el intervalo de movimiento si existe.
+   */
   stopMoving() {
     this.isMoving = false;
     if (this.moveInterval) {
@@ -86,6 +113,10 @@ export class Pacman {
     }
   }
 
+  /**
+   * @description Realiza un único movimiento de Pacman en la dirección actual.
+   * Maneja la lógica de colisiones y túneles.
+   */
   moveOnce() {
     if (this.firstMove) {
       this.firstMove = false;
@@ -128,11 +159,19 @@ export class Pacman {
     }
   }
 
+  /**
+   * @description Actualiza la posición visual de Pacman en el tablero.
+   * Mueve el elemento DOM a la celda correspondiente.
+   */
   updatePosition() {
     const cell = this.board.cells[this.row][this.col].getElement();
     cell.appendChild(this.element);
   }
 
+  /**
+   * @description Verifica y maneja las colisiones con puntos y fantasmas.
+   * @param {HTMLElement} cell - La celda actual donde está Pacman.
+   */
   checkCollisions(cell) {
     // Verificar colisión con puntos
     const point = cell.querySelector('.point');
@@ -162,6 +201,10 @@ export class Pacman {
     });
   }
 
+  /**
+   * @description Verifica si se ha completado el nivel actual.
+   * Si no quedan puntos, prepara el siguiente nivel.
+   */
   checkWin() {
     const remainingPoints = document.querySelectorAll('.point').length;
     if (remainingPoints === 0) {
@@ -175,6 +218,10 @@ export class Pacman {
     }
   }
 
+  /**
+   * @description Incrementa el nivel y actualiza la dificultad del juego.
+   * Reinicia los puntos y ajusta la velocidad.
+   */
   levelUp() {
     this.level++;
     this.updateLevelDisplay();
@@ -188,8 +235,9 @@ export class Pacman {
     this.spawn();
   }
 
-  // Manejo de mensajes de nivel completo
-
+  /**
+   * @description Configura y muestra el mensaje de nivel completado.
+   */
   setupNextLevelMessage() {
     this.nextLevelContainer = document.createElement('div');
     this.nextLevelContainer.classList.add('next-level-message');
@@ -197,45 +245,44 @@ export class Pacman {
     document.body.appendChild(this.nextLevelContainer);
   }
   
+  /**
+   * @description Actualiza el contenido del mensaje de nivel completado.
+   */
   updateNextLevelDisplay() {
     this.nextLevelContainer.textContent = `Level ${this.level} complete!!!!`;
   }
 
+  /**
+   * @description Elimina el mensaje de siguiente nivel del DOM.
+   */
   deleteNextLevelMessage() {
     const nextLevelMessage = document.querySelector('.next-level-message');
-    if ( nextLevelMessage) nextLevelMessage.remove();
+    if (nextLevelMessage) nextLevelMessage.remove();
   }
 
-  setupScoreDisplay() {
-    this.row = document.createElement('div');
-    this.row.classList.add('row');
-    this.scoreContainer = document.createElement('div');
-    this.scoreContainer.classList.add('score-container');
-    this.row.appendChild(this.scoreContainer);
-    this.updateScoreDisplay();
-    document.body.appendChild(this.row);
-  }
-  
+  /**
+   * @description Actualiza el display del puntaje actual.
+   */
   updateScoreDisplay() {
     this.scoreContainer.textContent = `Score: ${this.score}`;
   }
 
-  setupLevelDisplay() {
-    this.levelContainer = document.createElement('div');
-    this.levelContainer.classList.add('level-container');
-    this.updateLevelDisplay();
-    this.row.appendChild(this.levelContainer);
-  }
-
+  /**
+   * @description Actualiza el display del nivel actual.
+   */
   updateLevelDisplay() {
     this.levelContainer.textContent = `Level: ${this.level}`;
   }
 
+  /**
+   * @description Maneja el estado de game over.
+   * Detiene el juego, muestra el mensaje y reinicia después de un delay.
+   */
   gameOver() {
     this.stopMoving();
     this.ghostManager.reset();
     
-    // Remover a Pacman del DOM
+    // Elimina a Pacman
     this.element.remove();
     
     const gameOverMessage = document.createElement('div');

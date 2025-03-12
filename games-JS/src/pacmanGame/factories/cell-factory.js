@@ -4,16 +4,28 @@ import { Point } from '../classes/point.js';
 import { Tunnel } from '../classes/tunnel.js';
 import { GhostHouse } from '../classes/Ghost-house.js';
 
+/**
+ * @description Tipos de bordes para las celdas del tablero.
+ * @type {Object.<number, {row: number, type: string}>}
+ */
 const BORDER_TYPES = {
   0: { row: 0, type: 'top' },
   28: { row: 28, type: 'bottom' }
 };
 
+/**
+ * @description Tipos de bordes verticales para las celdas del tablero.
+ * @type {Object.<number, {col: number, type: string}>}
+ */
 const BORDER_TYPES_VERTICAL = {
   0: { col: 0, type: 'left' },
   27: { col: 27, type: 'right' }
 };
 
+/**
+ * @description Tipos de esquinas para las celdas del tablero.
+ * @type {Object.<string, string>}
+ */
 const CORNER_TYPES = {
   '0,0': 'corner-top-left',
   '0,27': 'corner-top-right',
@@ -21,7 +33,15 @@ const CORNER_TYPES = {
   '28,27': 'corner-bottom-right'
 };
 
+/**
+ * @description Fábrica para crear diferentes tipos de celdas en el tablero.
+ * Implementa el patrón Factory para la creación de celdas específicas.
+ */
 export class CellFactory {
+  /**
+   * @description Enumeración de los tipos de celdas disponibles.
+   * @enum {number}
+   */
   static CELL_TYPES = {
     EMPTY: 0,
     WALL: 1,
@@ -31,6 +51,13 @@ export class CellFactory {
     TUNNEL: 5
   };
 
+  /**
+   * @description Crea una nueva celda según el tipo especificado y su posición.
+   * @param {number} type - Tipo de celda a crear según CELL_TYPES.
+   * @param {number} row - Índice de la fila.
+   * @param {number} col - Índice de la columna.
+   * @returns {Cell} Una instancia de la celda apropiada según el tipo.
+   */
   static createCell(type, row, col) {
     // Revisamos si es un borde en el boardMap del pacman-game.js
     if (type !== this.CELL_TYPES.WALL && (row === 0 || row === 28 || col === 0 || col === 27)) {
@@ -58,6 +85,12 @@ export class CellFactory {
     }
   }
 
+  /**
+   * @description Crea una pared de borde según la posición especificada.
+   * @param {number} row - Índice de la fila.
+   * @param {number} col - Índice de la columna.
+   * @returns {Wall|null} Una instancia de Wall si es una esquina o borde, o null si no es ninguno.
+   */
   static createBorderWall(row, col) {
     const isCorner = [0, 28].includes(row) && [0, 27].includes(col);
 
