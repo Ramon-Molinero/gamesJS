@@ -1,0 +1,126 @@
+.ghost {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 11px 11px 0 0;
+    transform: translate(-50%, -50%);
+    z-index: 2000;
+    animation: float 0.5s ease-in-out infinite alternate;
+}
+
+.ghost-red {
+    background: #ff0000;
+}
+
+.ghost-pink {
+    background: #ffb8ff;
+}
+
+.ghost-cyan {
+    background: #00ffff;
+}
+
+.ghost-orange {
+    background: #ffb852;
+}
+
+.ghost.vulnerable {
+    background: #2121ff !important;
+    animation: vulnerable-flash 0.5s alternate infinite;
+}
+
+.ghost.dead {
+    opacity: 0.5;
+}
+
+/* eyes */
+.ghost::before, .ghost::after {
+    content: "";
+    position: absolute;
+    background: white;
+    height: 8px;
+    width: 8px;
+    border-radius: 100%;
+    top: 4px;
+    animation: lookAround 2s ease-in-out infinite;
+}
+
+.ghost::before {
+    left: 2px;
+}
+
+.ghost::after {
+    right: 2px;
+}
+
+/* pupils */
+.ghost .eyes::before, .ghost .eyes::after {
+    content: "";
+    position: absolute;
+    background: #000;
+    height: 4px;
+    width: 4px;
+    border-radius: 100%;
+    top: 6px;
+    z-index: 100;
+    animation: lookAround 2s ease-in-out infinite;
+}
+
+.ghost .eyes::before {
+    left: 4px;
+}
+
+.ghost .eyes::after {
+    right: 4px;
+}
+
+/* bottom wave effect */
+.ghost .skirt {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: inherit;
+    border-radius: 0 0 11px 11px;
+    animation: wave 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes vulnerable-flash {
+    0% {
+        background: #2121ff;
+    }
+    100% {
+        background: #ffffff;
+    }
+}
+
+@keyframes float {
+    0% {
+        transform: translate(-50%, -45%);
+    }
+    100% {
+        transform: translate(-50%, -55%);
+    }
+}
+
+@keyframes wave {
+    0% {
+        border-radius: 0 0 11px 11px;
+    }
+    100% {
+        border-radius: 0 0 4px 4px;
+    }
+}
+
+@keyframes lookAround {
+    0%, 100% {
+        transform: translate(0, 0);
+    }
+    25% {
+        transform: translate(1.5px, 0);
+    }
+    75% {
+        transform: translate(-1.5px, 0);
+    }
+}

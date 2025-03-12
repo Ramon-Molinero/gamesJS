@@ -10,6 +10,7 @@ export class Board {
     this.boardMap = null;
   }
 
+  
   createElement() {
     const board = document.createElement('div');
     board.classList.add('board-game');
